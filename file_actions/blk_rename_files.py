@@ -5,7 +5,6 @@ usages:
     blk_rename_file.py -s/--sourcedir <dir_path>  [-d/--destinationdir] <destination_dir> 
 
 """
-
 import os
 import argparse
 import string
@@ -13,13 +12,24 @@ import random
 import sys
 
 def get_random_string(length=13):
+    """ Generate random string.
+        
+        :param:
+            [length] : random string length
+        :return:
+            random string
+    """
     letters = string.ascii_lowercase
     result_str = ''.join(random.choice(letters) for i in range(length))
     return result_str
 
-def generate_random_name(filename):
-    """
 
+def generate_random_name(filename):
+    """ Generate random filename but preserve its extension.
+        :param:
+            filename: name of file
+        :return:
+            random file name
     """
     name, extension = os.path.splitext(filename)
     newname = get_random_string()
@@ -46,7 +56,6 @@ def run(sdir, ddir, verbos=False):
             exitcode 0 On successful execution.
             exitcode 1,2,3 on failure.
     """
-    
     if not os.path.isdir(sdir):
         print("Source dir is not exists")
         sys.exit(1)
@@ -70,7 +79,7 @@ def run(sdir, ddir, verbos=False):
 
             if verbos:
                 print("SRC:"+ flpath +"DEST:"+ dest_path)
-            #os.rename(flpath, dest_path)
+            os.rename(flpath, dest_path)
 
     return 0
 
@@ -87,4 +96,3 @@ if __name__ == "__main__":
     ddir = args['destinationdir']
 
     run(sdir, ddir, verbos=True)
-
